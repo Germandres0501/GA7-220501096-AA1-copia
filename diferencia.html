@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Versionamiento Local vs Remoto</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #f0f4f8, #e8f0fe);
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #1f4e79;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    h1 {
+      margin: 0;
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .comparison {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      justify-content: space-between;
+    }
+
+    .card {
+      flex: 1 1 45%;
+      background-color: white;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+      border-top: 6px solid #2e8b57;
+      transition: transform 0.3s;
+    }
+
+    .card:hover {
+      transform: scale(1.02);
+    }
+
+    .remote {
+      border-top-color: #4682b4;
+    }
+
+    h2 {
+      color: #2e8b57;
+    }
+
+    .remote h2 {
+      color: #4682b4;
+    }
+
+    ul {
+      line-height: 1.8;
+      padding-left: 20px;
+    }
+
+    .example {
+      background-color: #f8f9fa;
+      padding: 10px;
+      border-left: 4px solid #ccc;
+      font-family: monospace;
+      margin-top: 15px;
+    }
+
+    .diagram {
+      margin-top: 30px;
+      background: white;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    }
+
+    .diagram h3 {
+      text-align: center;
+      color: #1f4e79;
+    }
+
+    .graphic {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    .box {
+      text-align: center;
+      padding: 20px;
+      border-radius: 12px;
+      background-color: #dceefc;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+      width: 150px;
+      margin: 10px;
+    }
+
+    .arrow {
+      font-size: 30px;
+      color: #888;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 50px;
+      padding: 20px;
+      background-color: #f0f0f0;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <h1>Versionamiento Local vs Remoto con Git</h1>
+</header>
+
+<main>
+  <div class="comparison">
+    <div class="card">
+      <h2>🔧 Versionamiento Local</h2>
+      <ul>
+        <li>Se trabaja únicamente en tu computador.</li>
+        <li>Ideal para experimentar sin afectar el trabajo de otros.</li>
+        <li>Los commits quedan registrados en tu máquina.</li>
+        <li>No necesita conexión a Internet.</li>
+        <li>Permite crear ramas (branches) y revertir errores localmente.</li>
+      </ul>
+      <div class="example">
+        git init<br>
+        git add .<br>
+        git commit -m "Cambios locales"
+      </div>
+    </div>
+
+    <div class="card remote">
+      <h2>🌐 Versionamiento Remoto</h2>
+      <ul>
+        <li>Se trabaja en conjunto con un servidor remoto (como GitHub).</li>
+        <li>Facilita el trabajo colaborativo y la sincronización del código.</li>
+        <li>Permite compartir tus avances con otras personas.</li>
+        <li>Necesita conexión a Internet.</li>
+        <li>Ideal para respaldo, colaboración y control de versiones en equipo.</li>
+      </ul>
+      <div class="example">
+        git remote add origin https://github.com/usuario/repo.git<br>
+        git push -u origin main<br>
+        git pull origin main
+      </div>
+    </div>
+  </div>
+
+  <div class="diagram">
+    <h3>🧭 Flujo Visual entre Local y Remoto</h3>
+    <div class="graphic">
+      <div class="box">📁 Proyecto Local</div>
+      <div class="arrow">➜</div>
+      <div class="box">💾 Commit (Historial)</div>
+      <div class="arrow">➜</div>
+      <div class="box">🌍 GitHub</div>
+    </div>
+    <p style="text-align:center; margin-top: 15px;">El código se guarda primero localmente, luego se envía (push) a un servidor remoto como GitHub para compartirlo o respaldarlo.</p>
+  </div>
+</main>
+
+<footer>
+  Elaborado por Andrés Carrero - Abril 2025
+</footer>
+</body>
+</html>
