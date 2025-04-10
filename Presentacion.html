@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Germán Andrés Carrero Garzón - Portafolio Personal</title>
+  <style>
+    :root {
+        --primary-color: #4361ee;
+        --secondary-color: #3a0ca3;
+        --accent-color: #4cc9f0;
+        --text-color: #2b2c34;
+        --light-color: #f8f9fa;
+        --dark-color: #212529;
+        --gradient-bg: linear-gradient(135deg, #4361ee, #3a0ca3, #4cc9f0);
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+        background-color: var(--light-color);
+        color: var(--text-color);
+        line-height: 1.6;
+        overflow-x: hidden;
+    }
+
+    .header {
+        height: 100vh;
+        width: 100%;
+        padding: 0 10%;
+        background-image: var(--gradient-bg);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .header::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 150px;
+        background-color: var(--light-color);
+        clip-path: polygon(0 80%, 100% 0, 100% 100%, 0% 100%);
+    }
+
+    .navbar {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 30px 0;
+    }
+
+    .logo {
+        font-size: 24px;
+        font-weight: 800;
+        letter-spacing: 1px;
+        color: white;
+        cursor: pointer;
+    }
+
+    .menu-items {
+        display: flex;
+        list-style: none;
+    }
+
+    .menu-items li {
+        margin: 0 20px;
+    }
+
+    .menu-items li a {
+        color: white;
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+    .menu-items li a:hover {
+        color: var(--accent-color);
+        border-bottom: 2px solid var(--accent-color);
+    }
+
+    .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: calc(100vh - 100px);
+    }
+
+    .header-text {
+        max-width: 600px;
+        animation: fadeInRight 1s ease;
+    }
+
+    .header-text h1 {
+        font-size: 3.5rem;
+        line-height: 1.2;
+        color: white;
+        margin-bottom: 20px;
+    }
+
+    .header-text h1 span {
+        background: linear-gradient(to right, white, var(--accent-color));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .header-text p {
+        font-size: 1.2rem;
+        color: rgba(255, 255, 255, 0.9);
+        margin-bottom: 30px;
+    }
+
+    .header-text .btn {
+        display: inline-block;
+        padding: 12px 30px;
+        background-color: var(--accent-color);
+        color: var(--dark-color);
+        border-radius: 50px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .header-text .btn:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    .header-image {
+        position: relative;
+        width: 400px;
+        height: 400px;
+        animation: floatImage 4s ease-in-out infinite;
+    }
+
+    .header-image img {
+        width: 100%;
+        height: auto;
+        border-radius: 50%;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .about-section {
+        padding: 100px 10%;
+        text-align: center;
+    }
+
+    .section-title {
+        position: relative;
+        font-size: 2.5rem;
+        margin-bottom: 60px;
+        color: var(--secondary-color);
+    }
+
+    .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100px;
+        height: 4px;
+        background-image: var(--gradient-bg);
+        border-radius: 2px;
+    }
+
+    .about-content {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .about-text {
+        flex: 1;
+        min-width: 300px;
+        text-align: left;
+        padding: 0 20px;
+    }
+
+    .about-text h3 {
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+        color: var(--secondary-color);
+    }
+
+    .about-text p {
+        font-size: 1.1rem;
+        margin-bottom: 20px;
+    }
+
+    .skills-container {
+        flex: 1;
+        min-width: 300px;
+        padding: 20px;
+    }
+
+    .skill {
+        margin-bottom: 30px;
+    }
+
+    .skill-name {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        font-weight: 500;
+    }
+
+    .skill-bar {
+        height: 10px;
+        background-color: #e1e1e1;
+        border-radius: 5px;
+        overflow: hidden;
+    }
+
+    .skill-progress {
+        height: 100%;
+        background-image: var(--gradient-bg);
+        border-radius: 5px;
+        transition: width 1s ease;
+    }
+
+    .services-section {
+        padding: 100px 10%;
+        background-color: #f5f7fa;
+    }
+
+    .services-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        margin-top: 50px;
+    }
+
+    .service-card {
+        background-color: white;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+    }
+
+    .service-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    .service-icon {
+        width: 70px;
+        height: 70px;
+        background-image: var(--gradient-bg);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+
+    .service-icon i {
+        font-size: 30px;
+        color: white;
+    }
+
+    .service-title {
+        font-size: 1.4rem;
+        margin-bottom: 15px;
+        color: var(--secondary-color);
+    }
+
+    .contact-section {
+        padding: 100px 10%;
+        text-align: center;
+    }
+
+    .contact-info {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 30px;
+        margin-top: 50px;
+    }
+
+    .contact-card {
+        flex: 1;
+        min-width: 250px;
+        max-width: 350px;
+        padding: 30px;
+        background-color: white;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+    }
+
+    .contact-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    }
+
+    .contact-icon {
+        width: 60px;
+        height: 60px;
+        background-image: var(--gradient-bg);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px;
+    }
+
+    .contact-icon i {
+        font-size: 24px;
+        color: white;
+    }
+
+    .contact-title {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+        color: var(--secondary-color);
+    }
+
+    .contact-detail {
+        font-size: 1rem;
+        color: var(--text-color);
+    }
+
+    footer {
+        background-image: var(--gradient-bg);
+        color: white;
+        text-align: center;
+        padding: 30px 0;
+    }
+
+    .social-links {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+
+    .social-icon {
+        width: 40px;
+        height: 40px;
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 10px;
+        transition: all 0.3s ease;
+    }
+
+    .social-icon:hover {
+        background-color: var(--accent-color);
+        transform: translateY(-5px);
+    }
+
+    .social-icon i {
+        color: white;
+        font-size: 18px;
+    }
+
+    .footer-text {
+        font-size: 0.9rem;
+        opacity: 0.8;
+    }
+
+    @keyframes fadeInRight {
+        from {
+            opacity: 0;
+            transform: translateX(-50px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    @keyframes floatImage {
+        0%, 100% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-20px);
+        }
+    }
+
+    @media screen and (max-width: 1024px) {
+        .header-content {
+            flex-direction: column;
+            text-align: center;
+            justify-content: center;
+        }
+
+        .header-text {
+            margin-bottom: 50px;
+        }
+
+        .about-content {
+            flex-direction: column;
+        }
+
+        .about-text {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        .header {
+            padding: 0 5%;
+        }
+
+        .navbar {
+            padding: 20px 0;
+        }
+
+        .menu-items {
+            display: none;
+        }
+
+        .header-text h1 {
+            font-size: 2.5rem;
+        }
+
+        .header-image {
+            width: 300px;
+            height: 300px;
+        }
+
+        .section-title {
+            font-size: 2rem;
+        }
+
+        .about-section, .services-section, .contact-section {
+            padding: 80px 5%;
+        }
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+<!-- Header Section -->
+<header class="header">
+  <nav class="navbar">
+    <div class="logo">GC</div>
+    <ul class="menu-items">
+      <li><a href="#inicio">Inicio</a></li>
+      <li><a href="#sobre-mi">Sobre Mí</a></li>
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+  </nav>
+  <div class="header-content">
+    <div class="header-text">
+      <h1>Hola, soy <span>Germán Andrés Carrero Garzón</span></h1>
+      <p>Estudiante de Análisis de Datos y Diseño de Software apasionado por crear soluciones tecnológicas innovadoras y funcionales.</p>
+      <a href="#contacto" class="btn">Contáctame</a>
+    </div>
+    <div class="header-image">
+      <img src="/api/placeholder/400/400" alt="Germán Andrés Carrero Garzón">
+    </div>
+  </div>
+</header>
+
+<!-- About Section -->
+<section class="about-section" id="sobre-mi">
+  <h2 class="section-title">Sobre Mí</h2>
+  <div class="about-content">
+    <div class="about-text">
+      <h3>Estudiante con pasión por el desarrollo y el análisis de datos</h3>
+      <p>Soy Germán Andrés Carrero Garzón, actualmente estudio Análisis de Datos y Diseño de Software. Mi objetivo es combinar mis habilidades técnicas con mi creatividad para desarrollar soluciones innovadoras que respondan a las necesidades del mercado actual.</p>
+      <p>Me especializo en la creación de software integrador de tecnologías orientadas a servicios, y estoy constantemente aprendiendo nuevas herramientas y metodologías para mejorar mis habilidades.</p>
+    </div>
+    <div class="skills-container">
+      <div class="skill">
+        <div class="skill-name">
+          <span>Desarrollo de Software</span>
+          <span>90%</span>
+        </div>
+        <div class="skill-bar">
+          <div class="skill-progress" style="width: 90%"></div>
+        </div>
+      </div>
+      <div class="skill">
+        <div class="skill-name">
+          <span>Análisis de Datos</span>
+          <span>85%</span>
+        </div>
+        <div class="skill-bar">
+          <div class="skill-progress" style="width: 85%"></div>
+        </div>
+      </div>
+      <div class="skill">
+        <div class="skill-name">
+          <span>Control de Versiones</span>
+          <span>80%</span>
+        </div>
+        <div class="skill-bar">
+          <div class="skill-progress" style="width: 80%"></div>
+        </div>
+      </div>
+      <div class="skill">
+        <div class="skill-name">
+          <span>Tecnologías Web</span>
+          <span>75%</span>
+        </div>
+        <div class="skill-bar">
+          <div class="skill-progress" style="width: 75%"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Services Section -->
+<section class="services-section" id="servicios">
+  <h2 class="section-title">Mis Servicios</h2>
+  <div class="services-container">
+    <div class="service-card">
+      <div class="service-icon">
+        <i class="fas fa-code"></i>
+      </div>
+      <h3 class="service-title">Desarrollo de Software</h3>
+      <p>Creación de aplicaciones personalizadas adaptadas a las necesidades específicas de cada cliente, utilizando las últimas tecnologías y mejores prácticas.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">
+        <i class="fas fa-database"></i>
+      </div>
+      <h3 class="service-title">Análisis de Datos</h3>
+      <p>Implementación de soluciones de análisis de datos para ayudar a las empresas a tomar decisiones informadas basadas en información precisa y relevante.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">
+        <i class="fas fa-sitemap"></i>
+      </div>
+      <h3 class="service-title">Integración de Sistemas</h3>
+      <p>Desarrollo de software integrador que conecta diferentes tecnologías y servicios para crear soluciones unificadas y eficientes.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">
+        <i class="fas fa-cloud"></i>
+      </div>
+      <h3 class="service-title">Soluciones Cloud</h3>
+      <p>Implementación y gestión de aplicaciones en la nube, garantizando escalabilidad, seguridad y accesibilidad desde cualquier lugar.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Contact Section -->
+<section class="contact-section" id="contacto">
+  <h2 class="section-title">Contacto</h2>
+  <div class="contact-info">
+    <div class="contact-card">
+      <div class="contact-icon">
+        <i class="fas fa-envelope"></i>
+      </div>
+      <h3 class="contact-title">Email</h3>
+      <p class="contact-detail">german.carrero@ejemplo.com</p>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon">
+        <i class="fas fa-phone"></i>
+      </div>
+      <h3 class="contact-title">Teléfono</h3>
+      <p class="contact-detail">+57 3208646758</p>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon">
+        <i class="fas fa-map-marker-alt"></i>
+      </div>
+      <h3 class="contact-title">Ubicación</h3>
+      <p class="contact-detail">Bogotá, Colombia</p>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="social-links">
+    <a href="#" class="social-icon">
+      <i class="fab fa-linkedin-in"></i>
+    </a>
+    <a href="#" class="social-icon">
+      <i class="fab fa-github"></i>
+    </a>
+    <a href="#" class="social-icon">
+      <i class="fab fa-twitter"></i>
+    </a>
+    <a href="#" class="social-icon">
+      <i class="fab fa-instagram"></i>
+    </a>
+  </div>
+  <p class="footer-text">© 2025 Germán Andrés Carrero Garzón. Todos los derechos reservados.</p>
+</footer>
+</body>
+</html>
