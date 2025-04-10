@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Herramientas de Control de Versiones</title>
+  <style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f7f9fc;
+    }
+    header {
+        text-align: center;
+        margin-bottom: 40px;
+        background-color: #2c3e50;
+        color: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    h1 {
+        margin: 0;
+        font-size: 2.5em;
+    }
+    .subtitle {
+        margin-top: 10px;
+        font-size: 1.2em;
+        opacity: 0.9;
+    }
+    h2 {
+        color: #2c3e50;
+        border-bottom: 2px solid #3498db;
+        padding-bottom: 10px;
+        margin-top: 40px;
+    }
+    .tools-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 25px;
+        margin-top: 30px;
+    }
+    .tool-card {
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        overflow: hidden;
+        transition: transform 0.3s ease;
+    }
+    .tool-card:hover {
+        transform: translateY(-5px);
+    }
+    .tool-header {
+        display: flex;
+        align-items: center;
+        padding: 15px 20px;
+        background-color: #f8f9fa;
+        border-bottom: 1px solid #e9ecef;
+    }
+    .tool-logo {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: #e9ecef;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 15px;
+        font-weight: bold;
+        font-size: 1.5em;
+        color: white;
+    }
+    .git-logo { background-color: #f14e32; }
+    .svn-logo { background-color: #809cc9; }
+    .mercurial-logo { background-color: #999999; }
+    .cvs-logo { background-color: #295498; }
+    .perforce-logo { background-color: #404040; }
+    .tfs-logo { background-color: #68217a; }
+    .fossil-logo { background-color: #887370; }
+    .bazaar-logo { background-color: #5da22a; }
+    .github-logo { background-color: #24292e; }
+    .gitlab-logo { background-color: #fc6d26; }
+    .bitbucket-logo { background-color: #0052cc; }
+    .azure-logo { background-color: #0078d4; }
+
+    .tool-name {
+        font-size: 1.5em;
+        margin: 0;
+    }
+    .tool-type {
+        font-size: 0.8em;
+        text-transform: uppercase;
+        background-color: #e9ecef;
+        padding: 3px 8px;
+        border-radius: 4px;
+        margin-left: 10px;
+    }
+    .tool-content {
+        padding: 20px;
+    }
+    .tool-desc {
+        margin-top: 0;
+        margin-bottom: 15px;
+        color: #555;
+    }
+    .features-list {
+        padding-left: 20px;
+        margin-bottom: 15px;
+    }
+    .features-list li {
+        margin-bottom: 8px;
+    }
+    .tool-footer {
+        padding: 15px 20px;
+        background-color: #f8f9fa;
+        border-top: 1px solid #e9ecef;
+        font-size: 0.9em;
+    }
+    .command-example {
+        background-color: #f1f1f1;
+        padding: 12px;
+        border-radius: 4px;
+        font-family: 'Courier New', Courier, monospace;
+        overflow-x: auto;
+        margin: 15px 0;
+    }
+    .tag {
+        display: inline-block;
+        background-color: #e1f5fe;
+        color: #0288d1;
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-size: 0.8em;
+        margin-right: 5px;
+        margin-bottom: 5px;
+    }
+    .platforms {
+        margin-top: 10px;
+        display: flex;
+        gap: 10px;
+    }
+    .platform {
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-size: 0.8em;
+        background-color: #e8f5e9;
+        color: #388e3c;
+    }
+    .comparison {
+        margin-top: 40px;
+        overflow-x: auto;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+    th, td {
+        padding: 12px 15px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+    th {
+        background-color: #3498db;
+        color: white;
+    }
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+    .button {
+        display: inline-block;
+        background-color: #3498db;
+        color: white;
+        padding: 8px 15px;
+        border-radius: 4px;
+        text-decoration: none;
+        font-size: 0.9em;
+    }
+    .hosted-tools {
+        margin-top: 40px;
+    }
+    @media (max-width: 768px) {
+        .tools-container {
+            grid-template-columns: 1fr;
+        }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <h1>Herramientas de Control de Versiones</h1>
+  <div class="subtitle">Principales sistemas y plataformas para gestionar el código fuente</div>
+</header>
+
+<h2>Sistemas de Control de Versiones</h2>
+<p>Las herramientas de control de versiones permiten a los desarrolladores rastrear y gestionar cambios en el código fuente a lo largo del tiempo. Son esenciales para el desarrollo colaborativo y profesional de software.</p>
+
+<div class="tools-container">
+  <!-- Git -->
+  <div class="tool-card">
+    <div class="tool-header">
+      <div class="tool-logo git-logo">Git</div>
+      <div>
+        <h3 class="tool-name">Git</h3>
+        <span class="tool-type">Distribuido</span>
+      </div>
+    </div>
+    <div class="tool-content">
+      <p class="tool-desc">Sistema de control de versiones distribuido diseñado para manejar desde pequeños a grandes proyectos con velocidad y eficiencia.</p>
+      <div>
+        <span class="tag">Rápido</span>
+        <span class="tag">Distribuido</span>
+        <span class="tag">Branching</span>
+        <span class="tag">Open Source</span>
+      </div>
+      <h4>Características destacadas:</h4>
+      <ul class="features-list">
+        <li>Sistema completamente distribuido</li>
+        <li>Branching y merging eficientes</li>
+        <li>Historial completo offline</li>
+        <li>Integridad criptográfica del código</li>
+        <li>Área de preparación (staging area)</li>
+      </ul>
+      <div class="command-example">
+        # Inicializar repositorio<br>
+        git init<br><br>
+        # Clonar repositorio<br>
+        git clone https://github.com/usuario/repo.git
+      </div>
+      <div class="platforms">
+        <span class="platform">Windows</span>
+        <span class="platform">macOS</span>
+        <span class="platform">Linux</span>
+      </div>
+    </div>
+    <div class="tool-footer">
+      Creado por Linus Torvalds en 2005
+    </div>
+  </div>
+
+  <!-- SVN -->
+  <div class="tool-card">
+    <div class="tool-header">
+      <div class="tool-logo svn-logo">SVN</div>
+      <div>
+        <h3 class="tool-name">Subversion (SVN)</h3>
+        <span class="tool-type">Centralizado</span>
+      </div>
+    </div>
+    <div class="tool-content">
+      <p class="tool-desc">Sistema de control de versiones centralizado diseñado para reemplazar a CVS con un enfoque en la simplicidad y estabilidad.</p>
+      <div>
+        <span class="tag">Centralizado</span>
+        <span class="tag">Estable</span>
+        <span class="tag">Open Source</span>
+        <span class="tag">Apache</span>
+      </div>
+      <h4>Características destacadas:</h4>
+      <ul class="features-list">
+        <li>Commits atómicos</li>
+        <li>Control de versiones para directorios</li>
+        <li>Historial centralizado</li>
+        <li>Control de acceso detallado</li>
+        <li>Bajo consumo de recursos</li>
+      </ul>
+      <div class="command-example">
+        # Checkout de repositorio<br>
+        svn checkout https://ejemplo.com/svn/repo<br><br>
+        # Commit de cambios<br>
+        svn commit -m "Mensaje de commit"
+      </div>
+      <div class="platforms">
+        <span class="platform">Windows</span>
+        <span class="platform">macOS</span>
+        <span class="platform">Linux</span>
+      </div>
+    </div>
+    <div class="tool-footer">
+      Desarrollado por CollabNet, ahora parte de Apache Software Foundation
+    </div>
+  </div>
+
+  <!-- Mercurial -->
+  <div class="tool-card">
+    <div class="tool-header">
+      <div class="tool-logo mercurial-logo">Hg</div>
+      <div>
+        <h3 class="tool-name">Mercurial</h3>
+        <span class="tool-type">Distribuido</span>
+      </div>
+    </div>
+    <div class="tool-content">
+      <p class="tool-desc">Sistema de control de versiones distribuido enfocado en el alto rendimiento y la escalabilidad.</p>
+      <div>
+        <span class="tag">Distribuido</span>
+        <span class="tag">Escalable</span>
+        <span class="tag">Python</span>
+        <span class="tag">Open Source</span>
+      </div>
+      <h4>Características destacadas:</h4>
+      <ul class="features-list">
+        <li>Interfaz simple y consistente</li>
+        <li>Completamente distribuido</li>
+        <li>Gestión avanzada de branches</li>
+        <li>Extensiones y plugins</li>
+        <li>Alto rendimiento en archivos grandes</li>
+      </ul>
+      <div class="command-example">
+        # Inicializar repositorio<br>
+        hg init<br><br>
+        # Clonar repositorio<br>
+        hg clone https://ejemplo.com/repo
+      </div>
+      <div class="platforms">
+        <span class="platform">Windows</span>
+        <span class="platform">macOS</span>
+        <span class="platform">Linux</span>
+      </div>
+    </div>
+    <div class="tool-footer">
+      Creado por Matt Mackall en 2005
+    </div>
+  </div>
+
+  <!-- Perforce -->
+  <div class="tool-card">
+    <div class="tool-header">
+      <div class="tool-logo perforce-logo">P4</div>
+      <div>
+        <h3 class="tool-name">Perforce Helix Core</h3>
+        <span class="tool-type">Centralizado</span>
+      </div>
+    </div>
+    <div class="tool-content">
+      <p class="tool-desc">Sistema de control de versiones de alto rendimiento que destaca en el manejo de archivos grandes y binarios.</p>
+      <div>
+        <span class="tag">Comercial</span>
+        <span class="tag">Empresarial</span>
+        <span class="tag">Archivos Grandes</span>
+        <span class="tag">Escalable</span>
+      </div>
+      <h4>Características destacadas:</h4>
+      <ul class="features-list">
+        <li>Gestión de archivos binarios y grandes</li>
+        <li>Modelo de seguridad robusto</li>
+        <li>Alto rendimiento y escalabilidad</li>
+        <li>Integración con múltiples herramientas</li>
+        <li>Streams para gestión de flujos de trabajo</li>
+      </ul>
+      <div class="command-example">
+        # Sincronizar workspace<br>
+        p4 sync<br><br>
+        # Enviar cambios<br>
+        p4 submit -d "Descripción del cambio"
+      </div>
+      <div class="platforms">
+        <span class="platform">Windows</span>
+        <span class="platform">macOS</span>
+        <span class="platform">Linux</span>
+      </div>
+    </div>
+    <div class="tool-footer">
+      Desarrollado por Perforce Software, Inc.
+    </div>
+  </div>
+
+  <!-- TFS/Azure DevOps -->
+  <div class="tool-card">
+    <div class="tool-header">
+      <div class="tool-logo tfs-logo">TFS</div>
+      <div>
+        <h3 class="tool-name">Azure DevOps Server</h3>
+        <span class="tool-type">Centralizado/Git</span>
+      </div>
+    </div>
+    <div class="tool-content">
+      <p class="tool-desc">Plataforma de Microsoft para desarrollo colaborativo que incluye control de versiones, seguimiento de proyectos y CI/CD.</p>
+      <div>
+        <span class="tag">Microsoft</span>
+        <span class="tag">Empresarial</span>
+        <span class="tag">Integrado</span>
+        <span class="tag">Git/TFVC</span>
+      </div>
+      <h4>Características destacadas:</h4>
+      <ul class="features-list">
+        <li>Soporte tanto para Git como TFVC</li>
+        <li>Integración con Visual Studio</li>
+        <li>Gestión de proyectos incorporada</li>
+        <li>Integración continua y despliegue</li>
+        <li>Herramientas de administración avanzadas</li>
+      </ul>
+      <div class="command-example">
+        # Clonar repo Git de Azure DevOps<br>
+        git clone https://dev.azure.com/org/proyecto/_git/repo
+      </div>
+      <div class="platforms">
+        <span class="platform">Windows</span>
+        <span class="platform">Web</span>
+      </div>
+    </div>
+    <div class="tool-footer">
+      Desarrollado por Microsoft, anteriormente conocido como TFS
+    </div>
+  </div>
+
+  <!-- Fossil -->
+  <div class="tool-card">
+    <div class="tool-header">
+      <div class="tool-logo fossil-logo">F</div>
+      <div>
+        <h3 class="tool-name">Fossil</h3>
+        <span class="tool-type">Distribuido</span>
+      </div>
+    </div>
+    <div class="tool-content">
+      <p class="tool-desc">Sistema de control de versiones distribuido con servidor web integrado, seguimiento de problemas y wiki.</p>
+      <div>
+        <span class="tag">Distribuido</span>
+        <span class="tag">Todo-en-uno</span>
+        <span class="tag">Autocontenido</span>
+        <span class="tag">Open Source</span>
+      </div>
+      <h4>Características destacadas:</h4>
+      <ul class="features-list">
+        <li>Archivo único autocontenido</li>
+        <li>Servidor web integrado</li>
+        <li>Wiki y sistema de tickets incluidos</li>
+        <li>Sincronización bidireccional</li>
+        <li>Autenticación y permisos incorporados</li>
+      </ul>
+      <div class="command-example">
+        # Clonar repositorio<br>
+        fossil clone https://example.org/repo.fossil<br><br>
+        # Abrir repositorio<br>
+        fossil open repo.fossil
+      </div>
+      <div class="platforms">
+        <span class="platform">Windows</span>
+        <span class="platform">macOS</span>
+        <span class="platform">Linux</span>
+      </div>
+    </div>
+    <div class="tool-footer">
+      Desarrollado por D. Richard Hipp (creador de SQLite)
+    </div>
+  </div>
+
+  <!-- CVS -->
+  <div class="tool-card">
+    <div class="tool-header">
+      <div class="tool-logo cvs-logo">CVS</div>
+      <div>
+        <h3 class="tool-name">CVS</h3>
+        <span class="tool-type">Centralizado</span>
+      </div>
+    </div>
+    <div class="tool-content">
+      <p class="tool-desc">Sistema de control de versiones centralizado clásico, predecesor de la mayoría de los sistemas modernos.</p>
+      <div>
+        <span class="tag">Veterano</span>
+        <span class="tag">Centralizado</span>
+        <span class="tag">Open Source</span>
+        <span class="tag">Histórico</span>
+      </div>
+      <h4>Características destacadas:</h4>
+      <ul class="features-list">
+        <li>Control de versiones a nivel de archivo</li>
+        <li>Trabajo simultáneo en los mismos archivos</li>
+        <li>Operaciones atómicas limitadas</li>
+        <li>Gestión de tags y branches</li>
+        <li>Ampliamente probado y estable</li>
+      </ul>
+      <div class="command-example">
+        # Checkout de módulo<br>
+        cvs checkout modulo<br><br>
+        # Commit de cambios<br>
+        cvs commit -m "Mensaje"
+      </div>
+      <div class="platforms">
+        <span class="platform">Windows</span>
+        <span class="platform">macOS</span>
+        <span class="platform">Linux</span>
+      </div>
+    </div>
+    <div class="tool-footer">
+      Desarrollado originalmente en 1990, considerado legado
+    </div>
+  </div>
+
+  <!-- Bazaar -->
+  <div class="tool-card">
+    <div class="tool-header">
+      <div class="tool-logo bazaar-logo">Bzr</div>
+      <div>
+        <h3 class="tool-name">Bazaar</h3>
+        <span class="tool-type">Distribuido</span>
+      </div>
+    </div>
+    <div class="tool-content">
+      <p class="tool-desc">Sistema de control de versiones distribuido con enfoque en la facilidad de uso y flexibilidad.</p>
+      <div>
+        <span class="tag">Distribuido</span>
+        <span class="tag">Python</span>
+        <span class="tag">Canonical</span>
+        <span class="tag">Open Source</span>
+      </div>
+      <h4>Características destacadas:</h4>
+      <ul class="features-list">
+        <li>Interfaz amigable para usuarios</li>
+        <li>Funciona tanto en modo distribuido como centralizado</li>
+        <li>Integración con múltiples herramientas</li>
+        <li>Soporte para flujos de trabajo flexibles</li>
+        <li>Línea de comandos intuitiva</li>
+      </ul>
+      <div class="command-example">
+        # Inicializar repositorio<br>
+        bzr init<br><br>
+        # Commit de cambios<br>
+        bzr commit -m "Mensaje"
+      </div>
+      <div class="platforms">
+        <span class="platform">Windows</span>
+        <span class="platform">macOS</span>
+        <span class="platform">Linux</span>
+      </div>
+    </div>
+    <div class="tool-footer">
+      Desarrollado por Canonical Ltd., ahora con mantenimiento limitado
+    </div>
+  </div>
+</div>
+
+<h2 class="hosted-tools">Plataformas de Alojamiento</h2>
+<p>Estas plataformas proporcionan servicios de alojamiento para repositorios de control de versiones, añadiendo funcionalidades de colaboración, CI/CD y gestión de proyectos.</p>
+
+<div class="tools-container">
+  <!-- GitHub -->
+  <div class="tool-card">
+    <div class="tool-header">
+      <div class="tool-logo github-logo">GH</div>
+      <div>
+        <h3 class="tool-name">GitHub</h3>
+        <span class="tool-type">Plataforma Git</span>
+      </div>
+    </div>
+    <div class="tool-content">
+      <p class="tool-desc">La plataforma de desarrollo colaborativo más popular, centrada en Git con características sociales y de colaboración.</p>
+      <div>
+        <span class="tag">Microsoft</span>
+        <span class="tag">Social</span>
+        <span class="tag">Pull Requests</span>
+        <span class="tag">Actions</span>
+      </div>
+      <h4>Características destacadas:</h4>
+      <ul class="features-list">
+        <li>Pull Requests y revisión de código</li>
+        <li>GitHub Actions para CI/CD</li>
+        <li>GitHub Pages para sitios estáticos</li>
+        <li>GitHub Copilot para asistencia de IA</li>
+        <li>Gestión de issues y proyectos</li>
+      </ul>
+      <div class="platforms">
+        <span class="platform">Web</span>
+        <span class="platform">GitHub Desktop</span>
+        <span class="platform">Aplicación móvil</span>
+      </div>
+    </div>
+    <div class="tool-footer">
+      Fundado en 2008, adquirido por Microsoft en 2018
+    </div>
+  </div>
+
+  <!-- GitLab -->
+  <div class="tool-card">
+    <div class="tool-header">
+      <div class="tool-logo gitlab-logo">GL</div>
+      <div>
+        <h3 class="tool-name">GitLab</h3>
+        <span class="tool-type">Plataforma Git</span>
+      </div>
+    </div>
+    <div class="tool-content">
+      <p class="tool-desc">Plataforma completa de DevOps que cubre todo el ciclo de vida del desarrollo de software.</p>
+      <div>
+        <span class="tag">DevOps</span>
+        <span class="tag">CI/CD</span>
+        <span class="tag">Todo-en-uno</span>
+        <span class="tag">Open Source</span>
+      </div>
+      <h4>Características destacadas:</h4>
+      <ul class="features-list">
+        <li>Plataforma DevOps completa</li>
+        <li>CI/CD integrada y potente</li>
+        <li>Disponible en versión autoalojada</li>
+        <li>Métricas y análisis de código</li>
+        <li>Gestión de proyectos incluida</li>
+      </ul>
+      <div class="platforms">
+        <span class="platform">Web</span>
+        <span class="platform">Autoalojado</span>
+      </div>
+    </div>
+    <div class="tool-footer">
+      Fundado en 2011, disponible como SaaS y autoalojado
+    </div>
+  </div>
+
+  <!-- Bitbucket -->
+  <div class="tool-card">
+    <div class="tool-header">
+      <div class="tool-logo bitbucket-logo">BB</div>
+      <div>
+        <h3 class="tool-name">Bitbucket</h3>
+        <span class="tool-type">Plataforma Git/Mercurial</span>
+      </div>
+    </div>
+    <div class="tool-content">
+      <p class="tool-desc">Plataforma de alojamiento de código orientada a equipos profesionales, parte del ecosistema Atlassian.</p>
+      <div>
+        <span class="tag">Atlassian</span>
+        <span class="tag">Jira</span>
+        <span class="tag">Pipelines</span>
+        <span class="tag">Empresarial</span>
+      </div>
+      <h4>Características destacadas:</h4>
+      <ul class="features-list">
+        <li>Integración con Jira y herramientas Atlassian</li>
+        <li>Bitbucket Pipelines para CI/CD</li>
+        <li>Pull Requests y revisión de código</li>
+        <li>Disponible en la nube y Data Center</li>
+        <li>Control de acceso granular</li>
+      </ul>
+      <div class="platforms">
+        <span class="platform">Web</span>
+        <span class="platform">Data Center</span>
+      </div>
+    </div>
+    <div class="tool-footer">
+      Fundado en 2008, adquirido por Atlassian en 2010
+    </div>
+  </div>
+
+  <!-- Azure DevOps Services -->
+  <div class="tool-card">
+    <div class="tool-header">
+      <div class="tool-logo azure-logo">AZ</div>
+      <div>
+        <h3 class="tool-name">Azure DevOps Services</h3>
+        <span class="tool-type">Plataforma Git/TFVC</span>
+      </div>
+    </div>
+    <div class="tool-content">
+      <p class="tool-desc">Conjunto de servicios de desarrollo en la nube de Microsoft que incluye control de versiones, CI/CD y gestión de proyectos.</p>
+      <div>
+        <span class="tag">Microsoft</span>
+        <span class="tag">Azure</span>
+        <span class="tag">DevOps</span>
+        <span class="tag">Empresarial</span>
+      </div>
+      <h4>Características destacadas:</h4>
+      <ul class="features-list">
+        <li>Repos (Git y TFVC)</li>
+        <li>Pipelines (Build y Release)</li>
+        <li>Boards (gestión ágil)</li>
+        <li>Test Plans (pruebas manuales y automatizadas)</li>
+        <li>Artifacts (gestión de paquetes)</li>
+      </ul>
+      <div class="platforms">
+        <span class="platform">Web</span>
+        <span class="platform">Visual Studio</span>
+      </div>
+    </div>
+    <div class="tool-footer">
+      Evolución del antiguo Visual Studio Team Services (VSTS)
+    </div>
+  </div>
+</div>
+
+<h2>Comparativa de Sistemas</h2>
+<div class="comparison">
+  <table>
+    <thead>
+    <tr>
+      <th>Herramienta</th>
+      <th>Tipo</th>
+      <th>Modelo</th>
+      <th>Branching</th>
+      <th>Archivos grandes</th>
+      <th>Licencia</th>
+      <th>Curva de aprendizaje</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>Git</td>
+      <td>Distribuido</td>
+      <td>Snapshots</td>
+      <td>Excelente</td>
+      <td>Limitado</td>
+      <td>Open Source</td>
+      <td>Moderada-Alta</td>
+    </tr>
+    <tr>
+      <td>SVN</td>
+      <td>Centralizado</td>
+      <td>Delta</td>
+      <td>Moderado</td>
+      <td>Moderado</td>
+      <td>Open Source</td>
+      <td>Baja-Moderada</td>
+    </tr>
+    <tr>
+      <td>Mercurial</td>
+      <td>Distribuido</td>
+      <td>Delta</td>
+      <td>Bueno</td>
+      <td>Moderado</td>
+      <td>Open Source</td>
+      <td>Moderada</td>
+    </tr>
+    <tr>
+      <td>Perforce</td>
+      <td>Centralizado</td>
+      <td>Delta</td>
+      <td>Moderado</td>
+      <td>Excelente</td>
+      <td>Comercial</td>
+      <td>Moderada</td>
+    </tr>
